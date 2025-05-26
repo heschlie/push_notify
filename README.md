@@ -13,11 +13,11 @@
 
 ## Introduction
 
-I have been wanting to make my printer notify me whenever it finishes any print for some time now. And after I heard about Klipper, I soon realize that it can use python to extend its functionality. So I wrote this script to help me. And I hope this script can help you, too. 
+I have been wanting to make my printer notify me whenever it finishes any print for some time now. And after I heard about Klipper, I soon realized that it can use python to extend its functionality. So I wrote this script to help me. And I hope this script can help you, too. 
 
 This simple script will add push notification capabilty to Klipper. 
 
-Klipper is a open source 3D Printer firmware. If you want to install Klipper, you can go to [Klipper 3D](https://www.klipper3d.org/) for detailed instruction
+Klipper is an open source 3D Printer firmware. If you want to install Klipper, you can go to [Klipper 3D](https://www.klipper3d.org/) for detailed instructions.
 
 ## What you need
 
@@ -34,13 +34,16 @@ This script is using either [Pushover](https://pushover.net/), the free [ntfy.sh
 
 <ol><li>
 
-Download the source code of [notify.py](https://raw.githubusercontent.com/prd0000/push_notify/main/script/notify.py) if you want to use Pushover, or [fcm.py](https://raw.githubusercontent.com/prd0000/push_notify/main/script/fcm.py) if you want to use ntfy, or [pushbullet.py](https://raw.githubusercontent.com/prd0000/push_notify/main/script/pushbullet.py) if you want to use Pushbullet.
+Clone this repository to your home directory on your klipper installation, typically `/home/pi`, then change directory to the
+cloned repository and run the `install.sh`
 
-<li> 
-
-Copy the script into `<klipper folder>/klippy/extras` folder. 
-
-![Alt text](resources/image.png)
+example:
+```shell
+cd $HOME
+git clone https://github.com/heschlie/push_notify.git
+cd push_notify
+./install.sh
+```
 
 <li> 
 
@@ -78,7 +81,7 @@ After you add the section to printer.cfg, do `FIRMWARE_RESTART` at Klipper.
 You can put it in any G-Code file like:
 
 ```
-PUSH_NOTIFY MSG=<message> [DEVICE=<device>] [TITLE=<title>] [SOUND=<sound>]
+PUSH_NOTIFY MSG=<message> [DEVICE=<device>] [TITLE=<title>] [SOUND=<sound>] [PRIORITY=0]
 ```
 
 ```
@@ -91,12 +94,10 @@ PUSHBULLET_NOTIFY MSG=<message> TITLE=<title>
 
 
 * `MSG`: (mandatory) is the message that you are going to send to your phone.
-
 * `DEVICE`: (optional) send a device id. This is corresponds to your device id registered at Pushoverr.
-
 * `TITLE`: (optional, mandatory for pushbullet) put a title to the message. If you omit this, the script will default to empty string
-
 * `SOUND`: (optional) use a specific sound for the notification (Credits to [@Xierion](https://github.com/Xierion))
+* `PRIORITY`: (optional) Set the priority for the message (defaults to 0)
 
 
 <li>
