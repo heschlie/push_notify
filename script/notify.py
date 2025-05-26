@@ -6,7 +6,7 @@
 
 import requests
 
-HELP='''
+HELP = '''
 Klipper Push Notification module for PushOver.
 USAGE: PUSH_NOTIFY MSG="message" DEVICE="deviceid" [TITLE="title" SOUND="sound" PRIORITY=0 RETRY=30 EXPIRE=90]
 DEVICE should be your device id in pushover.
@@ -15,6 +15,7 @@ PRIORITY can be between -2 and 2
 RETRY must be greater than or equal to 30 if specified
 EXPIRE must be between RETRY and 10800
 '''
+
 
 class Notify:
     def __init__(self, config) -> None:
@@ -29,11 +30,12 @@ class Notify:
 
         # Register commands
         self.gcode.register_command(
-            "PUSH_NOTIFY", 
-            self.cmd_PUSH_NOTIFY, 
+            'PUSH_NOTIFY',
+            self.cmd_PUSH_NOTIFY,
             desc=self.cmd_PUSH_NOTIFY_help)
 
-    cmd_PUSH_NOTIFY_help = "Sending message to pushover server"
+    cmd_PUSH_NOTIFY_help = 'Sending message to pushover server'
+
     def cmd_PUSH_NOTIFY(self, params):
         message = params.get('MSG', '')
         device_id = params.get('DEVICE', '')
@@ -73,6 +75,7 @@ class Notify:
                 raise self.gcode.error(f'{r.status_code} {r.reason}: {resp_message}')
         except Exception as e:
             raise self.gcode.error(f'Error: {e}')
+
 
 def load_config(config):
     return Notify(config)
